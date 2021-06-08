@@ -138,11 +138,10 @@ async def teams(ctx):
     else:
         voiceChannel = ctx.author.voice.channel # Gets the voice channel the author is in
         memberList = voiceChannel.members # Gets members in voice channel of the author
-        memberList = [member for member in memberList if (not member.voice.self_mute)]
+        memberList = [member for member in memberList if (not member.voice.self_mute)] # Gets rid of people that are not playing by asking them to self mute
 
-        # Pulls strings of usernames/nicknames (if applicable)
-        userList = [member.nick if (member.nick is not None) else member.name for member in memberList]
-        teamList = createTeams(userList)
+        userList = [member.nick if (member.nick is not None) else member.name for member in memberList] # Pulls strings of usernames/nicknames (if applicable)
+        teamList = createTeams(userList) # Returns a randomized list of the names of the players
         embed = createEmbed(game, teamList)
         if embed != None:
             await ctx.channel.send(embed = embed)
